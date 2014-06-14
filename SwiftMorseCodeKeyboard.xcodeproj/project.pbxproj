@@ -15,6 +15,7 @@
 		D03A207A194C90F600671A50 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03A2079194C90F600671A50 /* KeyboardViewController.swift */; };
 		D03A207D194C90F600671A50 /* cz.petrzvonicek.SwiftMorseCodeKeyboard.Morse-Code-Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D03A2075194C90F600671A50 /* cz.petrzvonicek.SwiftMorseCodeKeyboard.Morse-Code-Keyboard.appex */; };
 		D0A2C530194CD12F00640224 /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C52F194CD12F00640224 /* KeyButton.swift */; };
+		D0A2C532194CE54400640224 /* MorseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2C531194CE54400640224 /* MorseConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		D03A2078194C90F600671A50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03A2079194C90F600671A50 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		D0A2C52F194CD12F00640224 /* KeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
+		D0A2C531194CE54400640224 /* MorseConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			children = (
 				D0A2C52F194CD12F00640224 /* KeyButton.swift */,
 				D03A2079194C90F600671A50 /* KeyboardViewController.swift */,
+				D0A2C531194CE54400640224 /* MorseConverter.swift */,
 				D03A2077194C90F600671A50 /* Supporting Files */,
 			);
 			path = "Morse Code Keyboard";
@@ -318,6 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0A2C532194CE54400640224 /* MorseConverter.swift in Sources */,
 				D03A207A194C90F600671A50 /* KeyboardViewController.swift in Sources */,
 				D0A2C530194CD12F00640224 /* KeyButton.swift in Sources */,
 			);
