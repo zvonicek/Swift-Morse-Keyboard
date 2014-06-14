@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D03A2074194C90F600671A50"
+               BuildableName = "cz.petrzvonicek.SwiftMorseCodeKeyboard.Morse-Code-Keyboard.appex"
+               BlueprintName = "Morse Code Keyboard"
+               ReferencedContainer = "container:SwiftMorseCodeKeyboard.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "D03A204E194C90B400671A50"
                BuildableName = "SwiftMorseCodeKeyboard.app"
                BlueprintName = "SwiftMorseCodeKeyboard"
@@ -28,31 +42,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D03A2060194C90B500671A50"
-               BuildableName = "SwiftMorseCodeKeyboardTests.xctest"
-               BlueprintName = "SwiftMorseCodeKeyboardTests"
-               ReferencedContainer = "container:SwiftMorseCodeKeyboard.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D03A204E194C90B400671A50"
-            BuildableName = "SwiftMorseCodeKeyboard.app"
-            BlueprintName = "SwiftMorseCodeKeyboard"
-            ReferencedContainer = "container:SwiftMorseCodeKeyboard.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
+      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
