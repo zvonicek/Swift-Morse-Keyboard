@@ -119,9 +119,10 @@ class KeyboardViewController: UIInputViewController {
         var proxy = self.textDocumentProxy as UITextDocumentProxy
         if let letter = self.converter.getCharacterForCode(currentWord) {
             if letter == "*" {
-                let length = countElements(proxy.documentContextBeforeInput!)
-                for i in 1..length {
-                    proxy.deleteBackward()
+                if let context = proxy.documentContextBeforeInput {
+                    for i in 1..countElements(context) {
+                        proxy.deleteBackward()
+                    }
                 }
             } else {
                 proxy.insertText(String(letter))
