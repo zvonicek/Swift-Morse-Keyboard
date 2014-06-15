@@ -40,15 +40,15 @@ class KeyboardViewController: UIInputViewController {
         nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         
         let nextWordButton = KeyButton.buttonWithType(.Custom) as KeyButton
-        nextWordButton.setTitle("→", forState:.Normal)
+        nextWordButton.setTitle("⏎", forState:.Normal)
         nextWordButton.addTarget(self, action: "nextWordButtonTouched", forControlEvents: .TouchUpInside)
 
         let spaceButton = KeyButton.buttonWithType(.Custom) as KeyButton
-        spaceButton.setTitle("Space", forState:.Normal)
+        spaceButton.setTitle("␣", forState:.Normal)
         spaceButton.addTarget(self, action: "spaceButtonTouched", forControlEvents: .TouchUpInside)
 
         let delButton = KeyButton.buttonWithType(.Custom) as KeyButton
-        delButton.setTitle("←", forState:.Normal)
+        delButton.setTitle("⌫", forState:.Normal)
         delButton.addTarget(self, action: "deleteButtonTouched", forControlEvents: .TouchUpInside)
         
         // constraints for dotButton
