@@ -12,6 +12,9 @@ class KeyboardViewController: UIInputViewController {
 
     var currentWord = ""
     let converter = MorseConverter()
+    var typedProxy: UITextDocumentProxy {
+        return textDocumentProxy as UITextDocumentProxy
+    }
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -116,28 +119,25 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func nextWordButtonTouched() {
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
         if let letter = self.converter.getCharacterForCode(currentWord) {
             if letter == "*" {
-                if let context = proxy.documentContextBeforeInput {
+                if let context = typedProxy.documentContextBeforeInput {
                     for i in 1..countElements(context) {
-                        proxy.deleteBackward()
+                        typedProxy.deleteBackward()
                     }
                 }
             } else {
-                proxy.insertText(String(letter))
+                typedProxy.insertText(String(letter))
             }
         }
         currentWord = ""
     }
     
     func spaceButtonTouched() {
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
-        proxy.insertText(" ")
+        typedProxy.insertText(" ")
     }
     
     func deleteButtonTouched() {
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
-        proxy.deleteBackward()
+        typedProxy.deleteBackward()
     }
 }
