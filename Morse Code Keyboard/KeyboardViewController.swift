@@ -11,7 +11,7 @@ import UIKit
 class KeyboardViewController: UIInputViewController {
 
     var currentWord = ""
-    var capsLock = false
+    var capsLock = true
     let converter = MorseConverter()
     var typedProxy: UITextDocumentProxy {
         return textDocumentProxy as UITextDocumentProxy
@@ -33,7 +33,7 @@ class KeyboardViewController: UIInputViewController {
         dotButton.addTarget(self, action: "dotButtonTouched", forControlEvents: .TouchUpInside)
         
         let dashButton = KeyButton.buttonWithType(.Custom) as KeyButton
-        dashButton.setTitle("–", forState:.Normal)
+        dashButton.setTitle("—", forState:.Normal)
         dashButton.addTarget(self, action: "dashButtonTouched", forControlEvents: .TouchUpInside)
         
         let nextKeyboardButton = KeyButton.buttonWithType(.Custom) as KeyButton
@@ -54,54 +54,60 @@ class KeyboardViewController: UIInputViewController {
         
         let shiftButton = KeyButton.buttonWithType(.Custom) as KeyButton
         shiftButton.setTitle("⇪", forState:.Normal)
-        shiftButton.addTarget(self, action: "shiftButtonTouched", forControlEvents: .TouchUpInside)
-        
+        shiftButton.pressed = capsLock
+        shiftButton.highlighted = false
+        shiftButton.addTarget(self, action: "shiftButtonTouched:", forControlEvents: .TouchUpInside)
+
         // constraints for dotButton
         self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 10.0))
         self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 10.0))
-        self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 0.5, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 0.3, constant: 0.0))
         
         // constraints for dashButton
         self.view.addConstraint(NSLayoutConstraint(item: dashButton, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1.0, constant: -10.0))
         self.view.addConstraint(NSLayoutConstraint(item: dashButton, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 10.0))
-        self.view.addConstraint(NSLayoutConstraint(item: dashButton, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 0.5, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: dashButton, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 0.3, constant: 0.0))
 
         // constraints for dotButton - dashButton
         self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Width, relatedBy: .Equal, toItem: dashButton, attribute: .Width, multiplier: 1.0, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Right, relatedBy: .Equal, toItem: dashButton, attribute: .Left, multiplier: 1.0, constant: -12.0))
-
-        // constraints for nextKeyboardButton
-        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 10.0))
-        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -30.0))
-        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Top, relatedBy: .Equal, toItem: dotButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
-        
-        // constraints for nextWordButton
-        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -30.0))
-        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Top, relatedBy: .Equal, toItem: dotButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
         
         // constraints for spaceButton
-        self.view.addConstraint(NSLayoutConstraint(item: spaceButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -30.0))
+        self.view.addConstraint(NSLayoutConstraint(item: spaceButton, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 0.3, constant: 0.0))
         self.view.addConstraint(NSLayoutConstraint(item: spaceButton, attribute: .Top, relatedBy: .Equal, toItem: dotButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: spaceButton, attribute: .Left, relatedBy: .Equal, toItem: dotButton, attribute: .Left, multiplier: 1.0, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: spaceButton, attribute: .Width, relatedBy: .Equal, toItem: dotButton, attribute: .Width, multiplier: 1.0, constant: 0.0))
+        
+        // constraints for nextWordButton
+        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 0.3, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Top, relatedBy: .Equal, toItem: dashButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Left, relatedBy: .Equal, toItem: dashButton, attribute: .Left, multiplier: 1.0, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Width, relatedBy: .Equal, toItem: dashButton, attribute: .Width, multiplier: 1.0, constant: 0.0))
+
+        // constraints for nextKeyboardButton
+        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 0.35, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 0.65, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Top, relatedBy: .Equal, toItem: nextWordButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
 
         // constraints for delButton
         self.view.addConstraint(NSLayoutConstraint(item: delButton, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1.0, constant: -10.0))
-        self.view.addConstraint(NSLayoutConstraint(item: delButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -30.0))
-        self.view.addConstraint(NSLayoutConstraint(item: delButton, attribute: .Top, relatedBy: .Equal, toItem: dotButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: delButton, attribute: .Left, relatedBy: .Equal, toItem: nextKeyboardButton, attribute: .Right, multiplier: 1.0, constant: 10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: delButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: delButton, attribute: .Top, relatedBy: .Equal, toItem: nextWordButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
         
-        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Width, relatedBy: .Equal, toItem: nextWordButton, attribute: .Width, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Width, relatedBy: .Equal, toItem: spaceButton, attribute: .Width, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: spaceButton, attribute: .Width, relatedBy: .Equal, toItem: delButton, attribute: .Width, multiplier: 1.0, constant: 0))
-        
-        self.view.addConstraint(NSLayoutConstraint(item: nextKeyboardButton, attribute: .Right, relatedBy: .Equal, toItem: nextWordButton, attribute: .Left, multiplier: 1.0, constant: -10.0))
-        self.view.addConstraint(NSLayoutConstraint(item: nextWordButton, attribute: .Right, relatedBy: .Equal, toItem: spaceButton, attribute: .Left, multiplier: 1.0, constant: -10.0))
-        self.view.addConstraint(NSLayoutConstraint(item: spaceButton, attribute: .Right, relatedBy: .Equal, toItem: delButton, attribute: .Left, multiplier: 1.0, constant: -10.0))
+        // constraints for delButton
+        self.view.addConstraint(NSLayoutConstraint(item: shiftButton, attribute: .Right, relatedBy: .Equal, toItem: nextKeyboardButton, attribute: .Left, multiplier: 1.0, constant: -10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: shiftButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: shiftButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -10.0))
+        self.view.addConstraint(NSLayoutConstraint(item: shiftButton, attribute: .Top, relatedBy: .Equal, toItem: nextWordButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
         
         
         self.view.addSubview(dotButton)
         self.view.addSubview(dashButton)
-        self.view.addSubview(nextKeyboardButton)
-        self.view.addSubview(nextWordButton)
         self.view.addSubview(spaceButton)
+        self.view.addSubview(nextWordButton)
+        self.view.addSubview(nextKeyboardButton)
         self.view.addSubview(delButton)
         self.view.addSubview(shiftButton)
     }
@@ -148,7 +154,8 @@ class KeyboardViewController: UIInputViewController {
         typedProxy.deleteBackward()
     }
     
-    func shiftButtonTouched() {
+    func shiftButtonTouched(sender: KeyButton!) {
         capsLock = !capsLock
+        sender.pressed = capsLock
     }
 }
