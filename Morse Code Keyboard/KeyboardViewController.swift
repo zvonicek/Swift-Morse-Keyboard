@@ -16,10 +16,6 @@ class KeyboardViewController: UIInputViewController {
     var typedProxy: UITextDocumentProxy {
         return textDocumentProxy as UITextDocumentProxy
     }
-    
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
