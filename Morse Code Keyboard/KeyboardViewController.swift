@@ -11,6 +11,7 @@ import UIKit
 class KeyboardViewController: UIInputViewController {
 
     var currentWord = ""
+    var capsLock = false
     let converter = MorseConverter()
     var typedProxy: UITextDocumentProxy {
         return textDocumentProxy as UITextDocumentProxy
@@ -50,6 +51,10 @@ class KeyboardViewController: UIInputViewController {
         let delButton = KeyButton.buttonWithType(.Custom) as KeyButton
         delButton.setTitle("⌫", forState:.Normal)
         delButton.addTarget(self, action: "deleteButtonTouched", forControlEvents: .TouchUpInside)
+        
+        let shiftButton = KeyButton.buttonWithType(.Custom) as KeyButton
+        shiftButton.setTitle("⇪", forState:.Normal)
+        shiftButton.addTarget(self, action: "shiftButtonTouched", forControlEvents: .TouchUpInside)
         
         // constraints for dotButton
         self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 10.0))
@@ -98,6 +103,7 @@ class KeyboardViewController: UIInputViewController {
         self.view.addSubview(nextWordButton)
         self.view.addSubview(spaceButton)
         self.view.addSubview(delButton)
+        self.view.addSubview(shiftButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -127,7 +133,8 @@ class KeyboardViewController: UIInputViewController {
                     }
                 }
             } else {
-                typedProxy.insertText(String(letter))
+                var append = (capsLock ? String(letter) : String(letter).lowercaseString)
+                typedProxy.insertText(append)
             }
         }
         currentWord = ""
@@ -139,5 +146,9 @@ class KeyboardViewController: UIInputViewController {
     
     func deleteButtonTouched() {
         typedProxy.deleteBackward()
+    }
+    
+    func shiftButtonTouched() {
+        capsLock = !capsLock
     }
 }
