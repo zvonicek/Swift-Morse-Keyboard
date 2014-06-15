@@ -11,10 +11,10 @@ import UIKit
 
 class KeyButton: UIButton {
 
+    var pressed = false
+    
     init(frame: CGRect) {
         super.init(frame: frame)
-        // Initialization code
-        
         self.setTitleColor(UIColor.blackColor(), forState:.Normal)
         self.setTitleColor(UIColor.whiteColor(), forState:.Highlighted)
         self.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -22,13 +22,17 @@ class KeyButton: UIButton {
     }
 
     override var highlighted: Bool {
-    didSet {
-        if (highlighted) {
-            self.backgroundColor = UIColor.grayColor()
-        } else {
-            self.backgroundColor = UIColor.whiteColor()
+        didSet {
+            if (highlighted) {
+                self.backgroundColor = UIColor.grayColor()
+            } else {
+                if(pressed) {
+                    self.backgroundColor = UIColor.lightGrayColor()
+                } else {
+                    self.backgroundColor = UIColor.whiteColor()
+                }
+            }
         }
-    }
     }
 
 }
