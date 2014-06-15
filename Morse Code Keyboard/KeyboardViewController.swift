@@ -11,6 +11,7 @@ import UIKit
 class KeyboardViewController: UIInputViewController {
 
     var currentWord = ""
+    let converter = MorseConverter()
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -116,8 +117,16 @@ class KeyboardViewController: UIInputViewController {
     
     func nextWordButtonTouched() {
         var proxy = self.textDocumentProxy as UITextDocumentProxy
-        if let letter = MorseConverter().getCharacterForCode(currentWord) {
-            proxy.insertText(letter)
+        if let letter = self.converter.getCharacterForCode(currentWord) {
+            if letter == "*" {
+                if let context = proxy.documentContextBeforeInput {
+                    for i in 1..countElements(context) {
+                        proxy.deleteBackward()
+                    }
+                }
+            } else {
+                proxy.insertText(String(letter))
+            }
         }
         currentWord = ""
     }
