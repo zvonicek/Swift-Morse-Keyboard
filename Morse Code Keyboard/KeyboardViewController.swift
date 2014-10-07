@@ -54,6 +54,14 @@ class KeyboardViewController: UIInputViewController {
         shiftButton.highlighted = false
         shiftButton.addTarget(self, action: "shiftButtonTouched:", forControlEvents: .TouchUpInside)
 
+        self.view.addSubview(dotButton)
+        self.view.addSubview(dashButton)
+        self.view.addSubview(spaceButton)
+        self.view.addSubview(nextWordButton)
+        self.view.addSubview(nextKeyboardButton)
+        self.view.addSubview(delButton)
+        self.view.addSubview(shiftButton)
+        
         // constraints for dotButton
         self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 10.0))
         self.view.addConstraint(NSLayoutConstraint(item: dotButton, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 10.0))
@@ -97,15 +105,6 @@ class KeyboardViewController: UIInputViewController {
         self.view.addConstraint(NSLayoutConstraint(item: shiftButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 10.0))
         self.view.addConstraint(NSLayoutConstraint(item: shiftButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: -10.0))
         self.view.addConstraint(NSLayoutConstraint(item: shiftButton, attribute: .Top, relatedBy: .Equal, toItem: nextWordButton, attribute: .Bottom, multiplier: 1.0, constant: 10.0))
-        
-        
-        self.view.addSubview(dotButton)
-        self.view.addSubview(dashButton)
-        self.view.addSubview(spaceButton)
-        self.view.addSubview(nextWordButton)
-        self.view.addSubview(nextKeyboardButton)
-        self.view.addSubview(delButton)
-        self.view.addSubview(shiftButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -130,7 +129,7 @@ class KeyboardViewController: UIInputViewController {
         if let letter = self.converter.getCharacterForCode(currentWord) {
             if letter == "*" {
                 if let context = typedProxy.documentContextBeforeInput {
-                    for i in 1..countElements(context) {
+                    for i in 1...countElements(context) {
                         typedProxy.deleteBackward()
                     }
                 }
