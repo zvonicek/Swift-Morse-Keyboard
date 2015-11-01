@@ -14,7 +14,7 @@ class KeyboardViewController: UIInputViewController {
     var capsLock = true
     let converter = MorseConverter()
     var typedProxy: UITextDocumentProxy {
-        return textDocumentProxy as! UITextDocumentProxy
+        return textDocumentProxy 
     }
 
     override func updateViewConstraints() {
@@ -24,31 +24,31 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        let dotButton = KeyButton.buttonWithType(.Custom) as! KeyButton
+        let dotButton = KeyButton(type: .Custom)
         dotButton.setTitle("•", forState:.Normal)
         dotButton.addTarget(self, action: "dotButtonTouched", forControlEvents: .TouchUpInside)
         
-        let dashButton = KeyButton.buttonWithType(.Custom) as! KeyButton
+        let dashButton = KeyButton(type: .Custom)
         dashButton.setTitle("—", forState:.Normal)
         dashButton.addTarget(self, action: "dashButtonTouched", forControlEvents: .TouchUpInside)
         
-        let nextKeyboardButton = KeyButton.buttonWithType(.Custom) as! KeyButton
+        let nextKeyboardButton = KeyButton(type: .Custom)
         nextKeyboardButton.setTitle("🌐", forState:.Normal)
         nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         
-        let nextWordButton = KeyButton.buttonWithType(.Custom) as! KeyButton
+        let nextWordButton = KeyButton(type: .Custom)
         nextWordButton.setTitle("⏎", forState:.Normal)
         nextWordButton.addTarget(self, action: "nextWordButtonTouched", forControlEvents: .TouchUpInside)
 
-        let spaceButton = KeyButton.buttonWithType(.Custom) as! KeyButton
+        let spaceButton = KeyButton(type: .Custom)
         spaceButton.setTitle("␣", forState:.Normal)
         spaceButton.addTarget(self, action: "spaceButtonTouched", forControlEvents: .TouchUpInside)
 
-        let delButton = KeyButton.buttonWithType(.Custom) as! KeyButton
+        let delButton = KeyButton(type: .Custom)
         delButton.setTitle("⌫", forState:.Normal)
         delButton.addTarget(self, action: "deleteButtonTouched", forControlEvents: .TouchUpInside)
         
-        let shiftButton = KeyButton.buttonWithType(.Custom) as! KeyButton
+        let shiftButton = KeyButton(type: .Custom)
         shiftButton.setTitle("⇪", forState:.Normal)
         shiftButton.pressed = capsLock
         shiftButton.highlighted = false
@@ -111,10 +111,10 @@ class KeyboardViewController: UIInputViewController {
         super.didReceiveMemoryWarning()
     }
 
-    override func textWillChange(textInput: UITextInput) {
+    override func textWillChange(textInput: UITextInput?) {
     }
 
-    override func textDidChange(textInput: UITextInput) {
+    override func textDidChange(textInput: UITextInput?) {
     }
 
     func dotButtonTouched() {
@@ -129,12 +129,12 @@ class KeyboardViewController: UIInputViewController {
         if let letter = self.converter.getCharacterForCode(currentWord) {
             if letter == "*" {
                 if let context = typedProxy.documentContextBeforeInput {
-                    for i in 1...count(context) {
+                    for _ in 1...context.characters.count {
                         typedProxy.deleteBackward()
                     }
                 }
             } else {
-                var append = (capsLock ? String(letter) : String(letter).lowercaseString)
+                let append = (capsLock ? String(letter) : String(letter).lowercaseString)
                 typedProxy.insertText(append)
             }
         }

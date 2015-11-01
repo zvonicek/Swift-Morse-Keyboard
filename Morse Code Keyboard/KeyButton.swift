@@ -17,11 +17,11 @@ class KeyButton: UIButton {
         super.init(frame: frame)
         self.setTitleColor(UIColor.blackColor(), forState:.Normal)
         self.setTitleColor(UIColor.whiteColor(), forState:.Highlighted)
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.highlighted = false
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
